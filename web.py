@@ -9,7 +9,7 @@ def file_handling():
     if todo in todos:
         st.warning("⚠️Todo already exit")
     elif todo:
-        st.success("🥑Todo added successfully")
+        st.success(f"🥑Todo added successfully, {len(todos)+1} Todos to complete")
         todos.append(todo)
         function.write_to_file(todos)
 
@@ -23,9 +23,13 @@ st.write("Todos: ")
 for index, todo in enumerate(todos):
     check  = st.checkbox(todo, key=todo)
     if check:
+        st.session_state["message"] = f"Not guilty!..😂, \"{todo}\" completed"
         todos.pop(index)
         function.write_to_file(todos)
         del st.session_state[todo]
         st.rerun()
+if "message" in st.session_state:
+    st.success(st.session_state["message"])
+    del st.session_state["message"]
 
 
