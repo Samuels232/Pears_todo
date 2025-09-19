@@ -1,6 +1,10 @@
 import streamlit as st
 import function
+import os
 
+if not os.path.exists("todo.txt"):
+    with open("todo.txt","w") as file:
+        pass
 
 st.set_page_config(layout="wide")
 todos = function.get_file()
@@ -14,7 +18,7 @@ def file_handling():
         function.write_to_file(todos)
 
 st.title("Pear's Todo app🥑")
-st.subheader("Quik todos during browsing")
+st.subheader("Quick todos during browsing🚀")
 st.text_input(label="",placeholder="Enter a quick todo:",
               key="new_todo",
               on_change=file_handling)
